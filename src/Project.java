@@ -33,8 +33,20 @@ public class Project {
         System.out.println("Name: " + name);
         System.out.println("Estimated time: " + estimatedTime);
         System.out.println("Sessions: ");
-        for (Session session : sessions) {
-            System.out.println(session);
+        long totalDuration = 0;
+        for (int i = 0; i < sessions.size(); i++) {
+            System.out.println("Session " + (i + 1) + ": " + sessions.get(i).getDescription());
+            totalDuration += sessions.get(i).getDuration();
+        }
+        System.out.println("You've worked on this project for " + totalDuration + "minutes");
+
+        if (estimatedTime > totalDuration) {
+            System.out.println("You managed to complete the project " + name + " in less than " + estimatedTime + " minutes");
+        } else if (estimatedTime == totalDuration) {
+            System.out.println("You managed to complete the project " + name + " in " + estimatedTime +  " minutes");
+        } else {
+            long deltaTime = totalDuration - estimatedTime;
+            System.out.println("You exceeded the initial estimation by " + deltaTime);
         }
     }
 }
