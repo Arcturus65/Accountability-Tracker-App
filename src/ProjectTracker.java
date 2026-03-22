@@ -7,6 +7,10 @@ public class ProjectTracker {
         this.projects = new ArrayList<>();
     }
 
+    public ArrayList<Project> getProjects() {
+        return projects;
+    }
+
     public void addProject(Project project) {
         projects.add(project);
     }
@@ -28,6 +32,10 @@ public class ProjectTracker {
             }
         }
         return null;
+    }
+
+    public void projectLoader(ArrayList<Project> projects) {
+        this.projects.addAll(projects);
     }
 
 }

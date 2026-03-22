@@ -12,7 +12,14 @@ public class Session {
         duration = 0;
         isActive = true;
     }
-// Creating stopSession method
+//  Second constructor for parsing
+
+    public Session(String description, long duration) {
+        this.duration = duration;
+        this.description = description;
+    }
+
+    // Creating stopSession method
 
     public void stopSession(String description) {
         this.description = description;

@@ -1,11 +1,20 @@
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ProjectTracker projectTracker = new ProjectTracker();
         Scanner input = new Scanner(System.in);
-        Project currentProject = null;
+        Project currentProject;
         Session currentSession = null;
+        try {
+            ArrayList<Project> loadedProjects = DataLoader.loadProjects();
+            projectTracker.projectLoader(loadedProjects);
+
+        } catch (Exception e) {
+            System.out.println("No projects found.");
+        }
         while (true) {
             System.out.println("What are we doing today?");
             System.out.println("1. Start new project.");
@@ -26,6 +35,7 @@ public class Main {
                 System.out.println();
             } else if (userInput == 2) {
                 System.out.println("Here are projects currently open. Please select one.");
+                System.out.println();
                 projectTracker.viewProjects();
                 String projectName = input.nextLine();
                 currentProject = projectTracker.findProject(projectName);
@@ -47,7 +57,9 @@ public class Main {
                     System.out.println("No active session for this project.");
                 }
             } else if (userInput == 4) {
-                System.out.println("Which project do you want to conclude?");
+                System.out.println("Here are the projects on going. Which project do you want to conclude?");
+                System.out.println();
+                projectTracker.viewProjects();
                 String projectName = input.nextLine();
                 currentProject = projectTracker.findProject(projectName);
                 if (currentProject != null) {
@@ -56,6 +68,7 @@ public class Main {
                     System.out.println("Project not found.");
                 }
             } else {
+                DataSaver.projectWriter(projectTracker);
                 break;
             }
         }
